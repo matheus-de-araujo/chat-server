@@ -15,6 +15,7 @@ public class ServidorTCP {
 		
 		ObjectOutputStream saida;
         ObjectInputStream entrada;
+		Boolean isFirstTime = true;
 		
 		try {
 			ServerSocket serverSocket = new ServerSocket(porta);
@@ -22,12 +23,14 @@ public class ServidorTCP {
 			Scanner scan = new Scanner(System.in);
 			
 			while (true) {
-				System.out.println("servidor ativo na porta " + porta);
-				
+				if(isFirstTime) System.out.println("servidor ativo na porta " + porta);
+
 				//fica aberto aguardando alguma conexão
 				conexao = serverSocket.accept();
-				
-				System.out.println("Conexão estabelecida com " + conexao.getInetAddress().getHostAddress());
+					
+				if(isFirstTime)	System.out.println("Conexão estabelecida com " + conexao.getInetAddress().getHostAddress());
+
+				isFirstTime = false;
 				
 				entrada = new ObjectInputStream(conexao.getInputStream());
 				saida = new ObjectOutputStream(conexao.getOutputStream());
