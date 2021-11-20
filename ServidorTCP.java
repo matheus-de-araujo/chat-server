@@ -33,24 +33,16 @@ public class ServidorTCP {
 				saida = new ObjectOutputStream(conexao.getOutputStream());
 				Message message = (Message) entrada.readObject();
 				
-				while (!message.isFim()) {
-					try {
-						System.out.println("Pessoa 1: " + message.getMessage());
+				try {
+					System.out.println("Pessoa 1: " + message.getMessage());
 
-						System.out.println("Digite sua Mensagem");
-						message.setMessage(scan.next());						
-						message.setFim(true);
+					System.out.println("Digite sua Mensagem");
+					message.setMessage(scan.next());						
 
-						saida.writeObject(message);
-					} catch (Exception e) {
-					}			
-				}
-				
-				System.out.println("Conexão encerrada pelo cliente");
-				saida.close();
-				entrada.close();
-				conexao.close();			
-				
+					saida.writeObject(message);
+				} catch (Exception e) {
+					//ToDo
+				}			
 			}
 			
 		} catch (Exception e) {
